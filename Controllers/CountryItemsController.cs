@@ -11,47 +11,47 @@ namespace CountryAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CountryItemsController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly CountryContext _context;
 
-        public CountryItemsController(CountryContext context)
+        public UsersController(CountryContext context)
         {
             _context = context;
         }
 
-        // GET: api/CountryItems
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<CountryItems>>> GetCountryItems()
+        // GET: api/Users
+        [HttpGet("GetUsers")]
+        public async Task<ActionResult<IEnumerable<Users>>> GetUsers()
         {
-            return await _context.CountryItems.ToListAsync();
+            return await _context.Users.ToListAsync();
         }
 
-        // GET: api/CountryItems/5
+        // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CountryItems>> GetCountryItems(long id)
+        public async Task<ActionResult<Users>> GetUsers(long id)
         {
-            var countryItems = await _context.CountryItems.FindAsync(id);
+            var Users = await _context.Users.FindAsync(id);
 
-            if (countryItems == null)
+            if (Users == null)
             {
                 return NotFound();
             }
 
-            return countryItems;
+            return Users;
         }
 
-        // PUT: api/CountryItems/5
+        // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCountryItems(long id, CountryItems countryItems)
+        public async Task<IActionResult> PutUsers(long id, Users Users)
         {
-            if (id != countryItems.Id)
+            if (id != Users.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(countryItems).State = EntityState.Modified;
+            _context.Entry(Users).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace CountryAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CountryItemsExists(id))
+                if (!UsersExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace CountryAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/CountryItems
+        // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<CountryItems>> PostCountryItems(CountryItems countryItems)
+        public async Task<ActionResult<Users>> PostUsers(Users Users)
         {
-            _context.CountryItems.Add(countryItems);
+            _context.Users.Add(Users);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCountryItems", new { id = countryItems.Id }, countryItems);
+            return CreatedAtAction("GetUsers", new { id = Users.Id }, Users);
         }
 
-        // DELETE: api/CountryItems/5
+        // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCountryItems(long id)
+        public async Task<IActionResult> DeleteUsers(long id)
         {
-            var countryItems = await _context.CountryItems.FindAsync(id);
-            if (countryItems == null)
+            var Users = await _context.Users.FindAsync(id);
+            if (Users == null)
             {
                 return NotFound();
             }
 
-            _context.CountryItems.Remove(countryItems);
+            _context.Users.Remove(Users);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CountryItemsExists(long id)
+        private bool UsersExists(long id)
         {
-            return _context.CountryItems.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.Id == id);
         }
     }
 }

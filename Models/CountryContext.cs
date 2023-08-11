@@ -9,6 +9,6 @@ namespace CountryAPI.Models
         {
 
         }
-        public DbSet<CountryItems> CountryItems { get; set; } = null!;
+        public DbSet<Users> Users { get; set; } = null!;
     }
 }
